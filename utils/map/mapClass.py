@@ -24,8 +24,12 @@ class Map:
         self.map = mapGenerator.generator(self.dimension,self.bias)
 
     def __str__(self):
-        pass
-
+        return self.dimension
+    
+    def viewpoint(self,coord,range):
+        mapViewer.Viewpoint(self,coord,range)
+        return 0
+    
     def layout(self):
         mapViewer.Layout(self)
         return 0
@@ -52,9 +56,11 @@ class Map:
 if __name__=="__main__":
     attributes = {
         "name":"Testing",
-        "dimension":(8,8),
+        "dimension":(50,50),
         "bias":1
     }
     x = Map(attributes)
     x.layout()
+    x.viewpoint((16,16),(3,3))
+
 
