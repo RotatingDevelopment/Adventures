@@ -16,6 +16,7 @@ Class contains the following:
 
 '''
 
+#defines the map object with initialization
 class Map:
     def __init__(self,attributes):
         self.name = attributes["name"]
@@ -25,15 +26,21 @@ class Map:
             self.map = attributes["layout"]
         else:
             self.map = mapGenerator.generator(self.dimension,self.bias)
+
     
+    #Provides viewpoint according to range relative to coordinates: coord -> (X,Y) , range -> (N,M)
     def viewpoint(self,coord,range) -> None:
         mapViewer.Viewpoint(self,coord,range)
-    
+
+    #Provides full view of entire map in visual format
     def layout(self) -> None:
         mapViewer.Layout(self.map,self.dimension)
 
+    #Regenerates structure of map
     def regen(self) -> None:
         self.map = mapGenerator.generator(self.dimension,self.bias)
+
+
 
     #Dunder Methods
     def __str__(self):
@@ -53,16 +60,19 @@ class Map:
         return newMap
 
 
+    #Comparison dunder methods
     def __eq__(self,other):
-        pass
+        return (self.dimension[0]*self.dimension[1]) == (other.dimension[0]*other.dimension[1])
     def __ne__(self,other):
-        pass
+        return (self.dimension[0]*self.dimension[1]) != (other.dimension[0]*other.dimension[1])
     def __lt__(self,other):
-        pass
+        return (self.dimension[0]*self.dimension[1]) < (other.dimension[0]*other.dimension[1])
     def __gt__(self,other):
-        pass
+        return (self.dimension[0]*self.dimension[1]) > (other.dimension[0]*other.dimension[1])
     def __ge__(self,other):
-        pass
+        return (self.dimension[0]*self.dimension[1]) >= (other.dimension[0]*other.dimension[1])
+    def __le__(self,other):
+        return (self.dimension[0]*self.dimension[1]) <= (other.dimension[0]*other.dimension[1])
 
 if __name__=="__main__":
     attributes = {
@@ -76,13 +86,6 @@ if __name__=="__main__":
         "bias":1
     }
     x = Map(attributes)
-    y = Map(attributes2)
-    z = x + y
-    g = z + y
-    #print(x)
-    #x.layout()
-    #x.viewpoint((16,16),(5,5))
-    #exec(open("mapGenerator.py",mode="r").read())
 
 
 
