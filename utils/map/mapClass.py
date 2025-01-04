@@ -21,27 +21,38 @@ class Map:
         self.name = attributes["name"]
         self.dimension = attributes["dimension"]
         self.bias = attributes["bias"]
+        if "layout" in attributes.keys():
+            self.map = attributes["layout"]
+        else:
+            self.map = mapGenerator.generator(self.dimension,self.bias)
+    
+    def viewpoint(self,coord,range) -> None:
+        mapViewer.Viewpoint(self,coord,range)
+    
+    def layout(self) -> None:
+        mapViewer.Layout(self.map,self.dimension)
+
+    def regen(self) -> None:
         self.map = mapGenerator.generator(self.dimension,self.bias)
 
-    def __str__(self):
-        return self.dimension
-    
-    def viewpoint(self,coord,range):
-        mapViewer.Viewpoint(self,coord,range)
-        return 0
-    
-    def layout(self):
-        mapViewer.Layout(self)
-        return 0
-
-
-
     #Dunder Methods
+    def __str__(self):
+        return f"Name:{self.name}\nBias:{self.bias}\nDimensions:{self.dimension}\n"
 
     def __add__(self,other):
-        pass
-    def __sub__(self,other):
-        pass
+        layout = mapGenerator.addition(self.map,other.map)
+
+        attributes = {
+            "name":f"{self.name}+{other.name}",
+            "dimension":(len(layout[0]),len(layout)),
+            "bias":(self.bias+other.bias)/2,
+            "layout":layout
+        }
+
+        newMap = Map(attributes)
+        return newMap
+
+
     def __eq__(self,other):
         pass
     def __ne__(self,other):
@@ -56,11 +67,22 @@ class Map:
 if __name__=="__main__":
     attributes = {
         "name":"Testing",
-        "dimension":(50,50),
+        "dimension":(7,7),
+        "bias":1
+    }
+    attributes2 = {
+        "name":"Another",
+        "dimension":(8,8),
         "bias":1
     }
     x = Map(attributes)
+    y = Map(attributes2)
+    z = x + y
+    g = z + y
+    #print(x)
     #x.layout()
-    x.viewpoint((16,16),(5,5))
+    #x.viewpoint((16,16),(5,5))
+    #exec(open("mapGenerator.py",mode="r").read())
+
 
 

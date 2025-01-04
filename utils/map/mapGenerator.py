@@ -1,5 +1,7 @@
 from random import randint
 from math import ceil
+
+import mapViewer
 '''
 dimensions: (X axis (N), Y axis (M))
             N x M 
@@ -33,14 +35,28 @@ def generator(dimension:tuple, bias:int) -> list[list[int]]:
     return mp
 
 
+def addition(mapLayout1:list[list], mapLayout2:list[list]) -> list[list]:
+
+    rank = sorted([mapLayout1,mapLayout2],key=lambda layout:len(layout),reverse=True)
+    k,j = len(rank[0]),len(rank[1])
+    res = []
+    for y in range(k):
+        res.append([])
+        if y < j:
+            res[y] = rank[0][y] + rank[1][y]
+        elif k == j:
+            break
+        else:
+           res[y] = rank[0][y] + [0 for _ in rank[1][0]]
+    return res
+
+
+
+
+
 if __name__=="__main__":
     dimension = (int(input("provide x")),int(input("provide y")))
     bias = float(input("provide bias"))
-    print(generator(dimension,bias))
-
-    #testcases:
-    #print(generator((6,6),1))
-    #print(generator(((10**3)+1,(10**3)+1),1))
-    #print(generator((8,8),2))
-    #print(generator((8,8),0.1))
+    layout = generator(dimension,bias)
+    mapViewer.Layout(layout,dimension)
             
