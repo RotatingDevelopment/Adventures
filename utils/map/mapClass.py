@@ -76,14 +76,6 @@ if __name__=="__main__":
         "bias":1
     }
     x = Map(attributes)
-    x.layout()
-    y = Map(attributes)
-    z = x + y
-    print(z.dimension)
-    #print(x)
-    #x.layout()
-    #x.viewpoint((16,16),(5,5))
-    #exec(open("mapGenerator.py",mode="r").read())
 
 
 
