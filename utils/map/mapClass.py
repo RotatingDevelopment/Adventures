@@ -76,9 +76,10 @@ if __name__=="__main__":
         "bias":1
     }
     x = Map(attributes)
-    y = Map(attributes2)
+    x.layout()
+    y = Map(attributes)
     z = x + y
-    g = z + y
+    print(z.dimension)
     #print(x)
     #x.layout()
     #x.viewpoint((16,16),(5,5))
